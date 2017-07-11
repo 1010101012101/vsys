@@ -1,0 +1,85 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading font-bold">
+        <a data-toggle="collapse" href="#search-stock"><u>Điều kiện lọc</u></a>
+      </div>
+      <div id="search-stock" class="panel-collapse collapse in">
+        <div class="panel-body">
+          <form class="bs-example form-horizontal">
+            <div class="row">
+              <div class="col-md-3">
+                <label>Tháng</label>
+                <month-picker (change)="onMonthChange($event)"></month-picker>
+              </div>
+              <div class="col-md-3">
+                <label>Năm</label>
+                <year-picker (change)="onYearChange($event)"></year-picker>
+              </div>
+              <div class="col-md-3">
+                <label>Sản phẩm</label>
+                <xautocomplete [(value)]="filter_ReportStock.product_id"
+                               [data]="products"
+                               [model_name]="'id'"
+                               [name]="'name'">
+                </xautocomplete>
+              </div>
+              <div class="col-md-3">
+                <label>Đơn vị tính</label>
+                <xautocomplete [(value)]="filter_ReportStock.unit_id"
+                               [data]="units"
+                               [model_name]="'id'"
+                               [name]="'name'">
+                </xautocomplete>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <label>Đại lý</label>
+                <xautocomplete [(value)]="filter_ReportStock.distributor_id"
+                               [data]="distributors"
+                               [model_name]="'id'"
+                               [name]="'name'">
+                </xautocomplete>
+              </div>
+              <div class="col-md-3">
+                <label>{{_deviceCaptionService.cabinet}}</label>
+                <xautocomplete [(value)]="filter_ReportStock.cabinet_id"
+                               [data]="cabinets"
+                               [model_name]="'id'"
+                               [name]="'name'">
+                </xautocomplete>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <button type="button" class="btn m-b-xs w-xs btn-info btn-rounded"
+                        (click)="search_ReportStock()">Tìm kiếm
+                </button>
+                <button class="btn m-b-xs w-xs btn-success btn-rounded"
+                        (click)="downloadFile('stock')">Xuất file
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading font-bold">
+        Báo cáo tồn hàng
+      </div>
+      <div class="panel-body">
+        <spinner-fb [isLoading]="isLoading_Stock"></spinner-fb>
+        <xdatatable [action]="action_data"
+                    [body]="report_stocks"
+                    [header]="header_stock">
+        </xdatatable>
+      </div>
+    </div>
+  </div>
+</div>

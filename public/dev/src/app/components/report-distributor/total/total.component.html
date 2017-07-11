@@ -1,0 +1,118 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading font-bold">
+        <a data-toggle="collapse" href="#search-total"><u>Điều kiện lọc</u></a>
+      </div>
+      <div id="search-total" class="panel-collapse collapse in">
+        <div class="panel-body">
+          <form class="bs-example form-horizontal">
+            <div class="row">
+              <div class="col-md-2">
+                <div class="radio" *ngFor="let rd of range_date">
+                  <label class="i-checks">
+                    <input type="radio" name="range_date" [value]="rd.value"
+                           (change)="filter_ReportTotal.range = rd.value">
+                    <i></i>
+                    {{rd.name}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-10">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label>Từ</label>
+                    <datetime [ngModel]="datepicker_from_total" name="datepicker_from_total"
+                              (dateChange)="myClearDate($event, 'total', 'from')"
+                              (ngModelChange)="myHandleDateFromChange($event, 'total')" [timepicker]="false"
+                              [datepicker]="datepickerSettings"></datetime>
+                  </div>
+                  <div class="col-md-3">
+                    <label>Đến</label>
+                    <datetime [(ngModel)]="datepicker_to_total" name="datepicker_to_total"
+                              (dateChange)="myClearDate($event, 'total', 'to')"
+                              [timepicker]="false"
+                              [datepicker]="datepickerToOpts_total"></datetime>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <!--<button class="btn m-b-xs w-xs btn-info btn-rounded"-->
+                        <!--(click)="search_ReportTotal()">Tìm kiếm-->
+                <!--</button>-->
+                <button class="btn m-b-xs w-xs btn-success btn-rounded"
+                        (click)="downloadFile('total')">Xuất file
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--<div class="row">-->
+  <!--<div class="col-md-12">-->
+    <!--<div class="panel panel-default">-->
+      <!--<div class="panel-heading font-bold">-->
+        <!--<a data-toggle="collapse" href="#search-date"><u>1. Báo cáo tổng hợp</u></a>-->
+      <!--</div>-->
+      <!--<div id="search-date" class="panel-collapse collapse in">-->
+      <!--<div class="panel-body">-->
+        <!--<spinner-fb [isLoading]="isLoading_Total"></spinner-fb>-->
+        <!--<master-detail [setup]="setup_by_date"-->
+                       <!--[header_master]="header_master_by_date"-->
+                       <!--[header_detail]="header_detail_by_date"-->
+                       <!--[master]=""-->
+                       <!--[(detail)]="detail_by_date">-->
+        <!--</master-detail>-->
+      <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading font-bold">
+        <a data-toggle="collapse" href="#search-product"><u>2. Báo cáo theo sản phẩm</u></a>
+      </div>
+      <div id="search-product" class="panel-collapse collapse in">
+      <div class="panel-body">
+        <spinner-fb [isLoading]="isLoading_Total"></spinner-fb>
+        <master-detail [setup]="setup_by_product"
+                       [header_master]="header_master_by_product"
+                       [header_detail]="header_detail_by_product"
+                       [master]="products"
+                       [(detail)]="detail_by_product">
+        </master-detail>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading font-bold">
+        <a data-toggle="collapse" href="#search-cabinet"><u>3. Báo cáo theo tủ</u></a>
+      </div>
+      <div id="search-cabinet" class="panel-collapse collapse in">
+      <div class="panel-body">
+        <spinner-fb [isLoading]="isLoading_Total"></spinner-fb>
+        <master-detail [setup]="setup_by_cabinet"
+                       [header_master]="header_master_by_cabinet"
+                       [header_detail]="header_detail_by_cabinet"
+                       [master]="cabinets"
+                       [(detail)]="detail_by_cabinet">
+        </master-detail>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

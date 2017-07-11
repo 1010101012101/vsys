@@ -1,0 +1,121 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading font-bold">
+        <a data-toggle="collapse" href="#search-input"><u>Điều kiện lọc</u></a>
+      </div>
+      <div id="search-input" class="panel-collapse collapse in">
+        <div class="panel-body">
+          <form class="bs-example form-horizontal">
+            <div class="row">
+              <div class="col-md-2">
+                <div class="radio" *ngFor="let rd of range_date">
+                  <label class="i-checks">
+                    <input type="radio" name="range_date" [value]="rd.value"
+                           (change)="filter_ReportInput.range = rd.value">
+                    <i></i>
+                    {{rd.name}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-10">
+                <div class="row">
+                  <div class="col-md-3">
+                    <label>Từ</label>
+                    <datetime [ngModel]="datepicker_from_input" name="datepicker_from_input"
+                              (dateChange)="myClearDate($event, 'input', 'from')"
+                              (ngModelChange)="myHandleDateFromChange($event, 'input')" [timepicker]="false"
+                              [datepicker]="datepickerSettings"></datetime>
+                  </div>
+                  <div class="col-md-3">
+                    <label>Đến</label>
+                    <datetime [(ngModel)]="datepicker_to_input" name="datepicker_to_input"
+                              (dateChange)="myClearDate($event, 'input', 'to')"
+                              [timepicker]="false"
+                              [datepicker]="datepickerToOpts_input"></datetime>
+                  </div>
+                  <div class="col-md-3">
+                    <label>Sản phẩm</label>
+                    <xautocomplete [(value)]="filter_ReportInput.product_id"
+                                   [data]="products"
+                                   [model_name]="'id'"
+                                   [name]="'name'">
+                    </xautocomplete>
+                  </div>
+                  <div class="col-md-3">
+                    <label>Đơn vị tính</label>
+                    <xautocomplete [(value)]="filter_ReportInput.unit_id"
+                                   [data]="units"
+                                   [model_name]="'id'"
+                                   [name]="'name'">
+                    </xautocomplete>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3">
+                    <label>Đại lý</label>
+                    <xautocomplete [(value)]="filter_ReportInput.distributor_id"
+                                   [data]="distributors"
+                                   [model_name]="'id'"
+                                   [name]="'name'">
+                    </xautocomplete>
+                  </div>
+                  <div class="col-md-3">
+                    <label>Nhân viên nhập</label>
+                    <xautocomplete [(value)]="filter_ReportInput.staff_input_id"
+                                   [data]="staffs"
+                                   [model_name]="'id'"
+                                   [name]="'fullname'">
+                    </xautocomplete>
+                  </div>
+                  <div class="col-md-3">
+                    <label>{{_deviceCaptionService.cabinet}}</label>
+                    <xautocomplete [(value)]="filter_ReportInput.cabinet_id"
+                                   [data]="cabinets"
+                                   [model_name]="'id'"
+                                   [name]="'name'">
+                    </xautocomplete>
+                  </div>
+                  <div class="col-md-3">
+                    <label>Nhân viên điều chỉnh số lượng</label>
+                    <xautocomplete [(value)]="filter_ReportInput.adjust_by"
+                                   [data]="staffs"
+                                   [model_name]="'id'"
+                                   [name]="'fullname'">
+                    </xautocomplete>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4">
+                <button class="btn m-b-xs w-xs btn-info btn-rounded"
+                        (click)="search_ReportInput()">Tìm kiếm
+                </button>
+                <button class="btn m-b-xs w-xs btn-success btn-rounded"
+                        (click)="downloadFile('input')">Xuất file
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading font-bold">
+        Báo cáo nhập hàng
+      </div>
+      <div class="panel-body">
+        <spinner-fb [isLoading]="isLoading_Input"></spinner-fb>
+        <xdatatable [action]="action_data"
+                    [body]="report_inputs"
+                    [header]="header_input">
+        </xdatatable>
+      </div>
+    </div>
+  </div>
+</div>

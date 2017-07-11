@@ -1,0 +1,286 @@
+<!-- content -->
+<div id="content" class="app-content" role="main">
+  <div class="app-content-body ">
+    <div class="bg-light lter b-b wrapper-md">
+      <div class="row">
+        <div class="col-md-12">
+          <span class="m-n font-thin h3" style="font-size: 2em">{{title}}</span>
+          <div class="pull-right">
+            <button class="btn m-b-xs btn-rounded btn-default btn-addon"
+                    (click)="refreshData()"><i class="fa fa-refresh"></i>Refresh
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper-md">
+      <div class="row">
+        <div class="col-md-12">
+          <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#home"><i
+                class="glyphicon glyphicon-th-list icon text-primary-lter"></i> Tất cả</a></li>
+            <li><a data-toggle="tab" href="#menu2"><i
+                class="glyphicon glyphicon-edit icon text-success-lter"></i> Thêm</a></li>
+          </ul>
+
+          <div class="tab-content">
+            <div role="tabpanel" id="home" class="tab-pane fade in active">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="panel panel-default">
+                    <div class="panel-heading font-bold">
+                      <a data-toggle="collapse" href="#search"><u>Điều kiện lọc</u></a>
+                    </div>
+                    <div id="search" class="panel-collapse collapse in">
+                      <div class="panel-body">
+                        <form class="bs-example form-horizontal">
+                          <div class="row">
+                            <div class="col-md-2">
+                              <div class="radio" *ngFor="let rd of range_date">
+                                <label class="i-checks">
+                                  <input type="radio" name="range_date" [value]="rd.value"
+                                         (change)="filtering.range = rd.value">
+                                  <i></i>
+                                  {{rd.name}}
+                                </label>
+                              </div>
+                            </div>
+                            <div class="col-md-10">
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <label>Từ</label>
+                                  <datetime [ngModel]="datepicker_from" name="datepicker_from"
+                                            (dateChange)="clearDate($event, 'from')"
+                                            (ngModelChange)="handleDateFromChange($event)" [timepicker]="false"
+                                            [datepicker]="datepickerSettings"></datetime>
+                                </div>
+                                <div class="col-md-3">
+                                  <label>Đến</label>
+                                  <datetime [(ngModel)]="datepicker_to" name="datepicker_to"
+                                            (dateChange)="clearDate($event, 'to')"
+                                            [timepicker]="false"
+                                            [datepicker]="datepickerToOpts"></datetime>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <label>Loại</label>
+                                  <select [(ngModel)]="filtering.dis_or_sup" name="dis_or_sup" class="form-control m-b">
+                                    <option value="sup">Khách hàng</option>
+                                    <option value="dis">Đại lý</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-3">
+                                  <label>Khách hàng</label>
+                                  <xautocomplete [(value)]="filtering.supplier_id"
+                                                 [data]="suppliers"
+                                                 [model_name]="'id'"
+                                                 [name]="'name'">
+                                  </xautocomplete>
+                                </div>
+                                <div class="col-md-3">
+                                  <label>Đại lý</label>
+                                  <xautocomplete [(value)]="filtering.distributor_id"
+                                                 [data]="distributors"
+                                                 [model_name]="'id'"
+                                                 [name]="'name'">
+                                  </xautocomplete>
+                                </div>
+                                <div class="col-md-3">
+                                  <label>Chức vụ</label>
+                                  <xautocomplete [(value)]="filtering.position_id"
+                                                 [data]="positions"
+                                                 [model_name]="'id'"
+                                                 [name]="'name'">
+                                  </xautocomplete>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-3">
+                                  <label>Bộ trung tâm</label>
+                                  <xautocomplete [(value)]="filtering.io_center_id"
+                                                 [data]="io_centers"
+                                                 [model_name]="'id'"
+                                                 [name]="'name'">
+                                  </xautocomplete>
+                                </div>
+                                <div class="col-md-3">
+                                  <label>{{_deviceCaptionService.rfid}}</label>
+                                  <xautocomplete [(value)]="filtering.rfid_id"
+                                                 [data]="rfids"
+                                                 [model_name]="'id'"
+                                                 [name]="'name'">
+                                  </xautocomplete>
+                                </div>
+                                <div class="col-md-3">
+                                  <label>Người dùng</label>
+                                  <xautocomplete [(value)]="filtering.fullname"
+                                                 [data]="users"
+                                                 [model_name]="'fullname'"
+                                                 [name]="'fullname'">
+                                  </xautocomplete>
+                                </div>
+                                <div class="col-md-3">
+                                  <label>SĐT</label>
+                                  <xautocomplete [(value)]="filtering.phone"
+                                                 [data]="users"
+                                                 [model_name]="'phone'"
+                                                 [name]="'phone'">
+                                  </xautocomplete>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <button class="btn m-b-xs w-xs btn-info btn-rounded"
+                                      type="button"
+                                      (click)="search()">Tìm kiếm
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="panel panel-default">
+                    <div class="panel-heading font-bold">
+                      Danh sách nhân viên đã cấp {{_deviceCaptionService.card}}
+                    </div>
+                    <div class="panel-body">
+                      <spinner-fb [isLoading]="isLoading"></spinner-fb>
+                      <xdatatable [action]="action_data"
+                                  [body]="user_cards"
+                                  [header]="header"
+                                  (onClicked)="actionCrud($event)">
+                      </xdatatable>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="menu2" class="tab-pane fade">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="panel panel-default">
+                    <div class="panel-heading font-bold">Cấp {{_deviceCaptionService.card}} cho nhân viên</div>
+                    <div class="panel-body">
+                      <form class="bs-example form-horizontal">
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="panel panel-success">
+                              <div class="panel-heading">
+                                {{_deviceCaptionService.card}}
+                              </div>
+                              <div class="panel-body">
+                                <div class="dd">
+                                  <ul class="dd-list">
+                                    <ng-container *ngFor="let rfid of rfids">
+                                      <li class="dd-item dd3-item">
+                                        <div class="dd-handle dd3-handle">{{rfid.code}} | {{rfid.name}}</div>
+                                        <div class="dd3-content">
+                                          <div class="radio" *ngFor="let card of slideCards(rfid.id)">
+                                            <label class="i-checks">
+                                              <input type="radio" name="card_id" [(ngModel)]="user_card.card_id"
+                                                     [value]="card.id">
+                                              <i></i>
+                                              {{ card.code }} | {{ card.name }}
+                                            </label>
+                                          </div>
+                                        </div>
+                                      </li>
+                                    </ng-container>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="panel panel-info">
+                              <div class="panel-heading">
+                                Nhân viên Khách hàng
+                              </div>
+                              <div class="panel-body">
+                                <div class="dd">
+                                  <ul class="dd-list">
+                                    <ng-container *ngFor="let supplier of suppliers">
+                                      <li class="dd-item dd3-item">
+                                        <div class="dd-handle dd3-handle">{{supplier.name}}</div>
+                                        <div class="dd3-content">
+                                          <div class="radio" *ngFor="let staff of slideStaffs(supplier.id, 'sup')">
+                                            <label class="i-checks">
+                                              <input type="radio" name="user_id" [(ngModel)]="user_card.user_id"
+                                                     [value]="staff.id">
+                                              <i></i>
+                                              {{ staff.fullname }} | {{ staff.position_name }}
+                                            </label>
+                                          </div>
+                                        </div>
+                                      </li>
+                                    </ng-container>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="panel panel-info">
+                              <div class="panel-heading">
+                                Nhân viên Đại lý
+                              </div>
+                              <div class="panel-body">
+                                <div class="dd">
+                                  <ul class="dd-list">
+                                    <ng-container *ngFor="let distributor of distributors">
+                                      <li class="dd-item dd3-item">
+                                        <div class="dd-handle dd3-handle">{{distributor.name}}</div>
+                                        <div class="dd3-content">
+                                          <div class="radio" *ngFor="let staff of slideStaffs(distributor.id, 'dis')">
+                                            <label class="i-checks">
+                                              <input type="radio" name="user_id" [(ngModel)]="user_card.user_id"
+                                                     [value]="staff.id">
+                                              <i></i>
+                                              {{ staff.fullname }} | {{ staff.position_name }}
+                                            </label>
+                                          </div>
+                                        </div>
+                                      </li>
+                                    </ng-container>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                              <button class="btn m-b-xs w-xs btn-primary btn-rounded" (click)="saveOne()">Lưu</button>
+                              <button class="btn m-b-xs btn-rounded btn-default btn-addon" (click)="clearOne()"><i
+                                  class="fa fa-eraser"></i>Làm mới
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <modal [objectData]="modal" (onClicked)="confirmDeactivateOne($event)"></modal>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /content -->

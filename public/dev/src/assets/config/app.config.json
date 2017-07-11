@@ -1,0 +1,7 @@
+{
+  "version": "4.0.0",
+  "apiHost": "",
+  "apiUrl": "api",
+  "apiVersion": "v1",
+  "env": "prod"
+}
