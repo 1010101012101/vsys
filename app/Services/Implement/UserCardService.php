@@ -360,9 +360,9 @@ class UserCardService implements UserCardServiceInterface
                     'count'        => $one->count,
                     'created_by'   => $this->user->id,
                     'updated_by'   => 0,
-                    'created_date' => date('Y - m - d H:i:s'),
+                    'created_date' => date('Y-m-d H:i:s'),
                     'updated_date' => null,
-                    'vsys_date'    => date('Y - m - d H:i:s'),
+                    'vsys_date'    => date('Y-m-d H:i:s'),
                     'active'       => true
                 ];
 
