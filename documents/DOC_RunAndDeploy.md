@@ -30,6 +30,7 @@
 - Trong file .env có trường APP_PROD
   + true: không tạo dữ liệu test
   + false: tạo dữ liệu test
+- Truy cập http://localhost:8000/docs để xem TÀI LIỆU MÔ TẢ ĐỊNH DẠNG DỮ LIỆU
 
 -----------------------------------
 ## 3. Insert Location to DB
