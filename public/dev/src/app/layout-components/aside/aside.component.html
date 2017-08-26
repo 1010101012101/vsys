@@ -34,40 +34,33 @@
       <!-- nav -->
       <nav ui-nav class="navi clearfix">
         <ul class="nav">
-          <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+          <!-- <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
             <span>{{nav_lv0}}</span>
-          </li>
+          </li> -->
 
           <ng-container *ngFor="let group_role of group_roles">
             <ng-container [ngSwitch]="group_role.id">
-              <ng-container *ngSwitchCase="1">
+              <!-- <ng-container *ngSwitchCase="1">
                 <li *ngFor="let role of sliceRoles(group_role.id)" routerLinkActive="active">
                   <a [routerLink]="role.router_link">
                     <i class="glyphicon {{ role.icon_name }}"></i>
-                    <span>{{ role.description }}</span>
+                    <span>{{ role.description }}333</span>
                   </a>
                 </li>
-              </ng-container>
+              </ng-container> -->
               <ng-container *ngSwitchDefault>
                 <li *ngIf="sliceRoles(group_role.id).length != 0">
                   <a class="auto">
-              <span class="pull-right text-muted">
-                  <i class="fa fa-fw fa-angle-right text"></i>
-                  <i class="fa fa-fw fa-angle-down text-active"></i>
-              </span>
+
                     <i class="glyphicon {{ group_role.icon_name }}"></i>
-                    <span>{{group_role.name}}</span>
+                    <span>{{group_role.name}}aaaaa</span>
                   </a>
                   <ul class="nav nav-sub dk">
-                    <li class="nav-sub-header">
-                      <a>
-                        <span>{{group_role.name}}</span>
-                      </a>
-                    </li>
+
                     <li *ngFor="let role of sliceRoles(group_role.id)">
                       <a [routerLink]="role.router_link">
                         <i class="glyphicon {{ role.icon_name }}"></i>
-                        <span>{{ role.description }}</span>
+                        <span>{{ role.description }}100</span>
                       </a>
                     </li>
                   </ul>

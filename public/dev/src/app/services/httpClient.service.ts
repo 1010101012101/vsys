@@ -141,8 +141,8 @@ export class HttpClientService {
 
     get(url: string, mode: string = 'json'): Observable<Response> {
         // toPromise().then(if status code = 401 redirect to login)
-        return this.http.get(`${this.apiHost}/${this.apiUrl}/${this.apiVersion}/${url}`, {
-            headers: this._headers
+        return this.http.get(`${this.apiHost}/${this.apiUrl}/${this.apiVersion}/${url}`
+            , {headers: this._headers
         })
         // .toPromise()
         // .then();

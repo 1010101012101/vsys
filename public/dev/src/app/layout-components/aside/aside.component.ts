@@ -21,7 +21,10 @@ export class AsideComponent implements OnInit {
 
     public nav_lv0: string = 'Danh mục';
 
-    constructor(private httpClientService: HttpClientService, private authenticationService: AuthenticationService, private router: Router, private loggingService: LoggingService) {
+    constructor(private httpClientService: HttpClientService
+      , private authenticationService: AuthenticationService
+      , private router: Router
+      , private loggingService: LoggingService) {
         this._httpClientSubscription = this.httpClientService.httpClient$.subscribe(
             status => {
                 this.loggingService.consoleLog("%c Navigation", "background: green; color: white");
@@ -29,6 +32,7 @@ export class AsideComponent implements OnInit {
 
                 if (status) {
                     this.roles = this.authenticationService.authenticateRole;
+                     console.log(this.roles);
                     this.group_roles = this.authenticationService.authenticateGroupRole;
                     this.fullname = this.authenticationService.authenticateUser.fullname;
                     this.position_name = this.authenticationService.authenticateUser.position_name;
@@ -61,6 +65,7 @@ export class AsideComponent implements OnInit {
      */
     public sliceRoles(group_role_id: number) {
         return this.roles.filter(function (o) {
+
             return o['group_role_id'] == group_role_id;
         });
     }
